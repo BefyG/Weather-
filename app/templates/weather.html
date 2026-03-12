@@ -1,0 +1,80 @@
+let apiKey=
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Weather App</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>🌤 Global Weather App</h1>
+
+        <div class="search-box">
+            <input type="text" id="city" placeholder="Enter city name">
+            <button onclick="getWeather()">Search</button>
+        </div>
+
+        <div class="weather">
+
+            <h2 id="cityName">City</h2>
+
+            <p id="temp">Temperature:</p>
+
+            <p id="condition">Condition:</p>
+
+            <p id="humidity">Humidity:</p>
+
+            <p id="wind">Wind Speed:</p>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        async function getWeather() {
+
+            let city = document.getElementById("city").value
+
+            let apiKey = "YOUR_API_KEY"
+
+            let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
+
+            let response = await fetch(url)
+
+            if (!response.ok) {
+                document.getElementById("cityName").innerText = "City not found";
+                document.getElementById("temp").innerText = "";
+                document.getElementById("condition").innerText = "";
+                document.getElementById("humidity").innerText = "";
+                document.getElementById("wind").innerText = "";
+                return;
+            }
+
+            document.getElementById("cityName").innerText = data.name
+
+            document.getElementById("temp").innerText =
+                "Temperature: " + data.main.temp + " °C"
+
+            document.getElementById("condition").innerText =
+                "Condition: " + data.weather[0].description
+
+            document.getElementById("humidity").innerText =
+                "Humidity: " + data.main.humidity + "%"
+
+            document.getElementById("wind").innerText =
+                "Wind Speed: " + data.wind.speed + " m/s"
+
+        }
+
+    </script>
+
+</body>
+
+</html>
